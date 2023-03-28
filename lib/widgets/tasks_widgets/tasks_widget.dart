@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:nationalizations/constants/app_values_design.dart';
 
-import 'package:nationalizations/widgets/widgets.dart';
+import 'package:nationalizations/constants/constants.dart';
 
 class TaskWidget extends StatefulWidget {
 
@@ -35,7 +34,7 @@ class _TaskWidgetState extends State<TaskWidget> {
               shrinkWrap  : true,
               itemCount   : 3,
               itemBuilder : (BuildContext context, int index) {
-                return const TodoItemWidget(ownTask: false);
+                return const ClientTasksContainer();
               },
             ),
           ),
@@ -45,7 +44,7 @@ class _TaskWidgetState extends State<TaskWidget> {
   }
 }
 
-class TaskReferencesHeader extends StatelessWidget {
+/*class TaskReferencesHeader extends StatelessWidget {
 
   final int referencesFlex;
   final String referenceTitle;
@@ -79,26 +78,23 @@ class TaskReferencesHeader extends StatelessWidget {
       ),
     );
   }
-}
+}*/
 
-class TodoItemWidget extends StatefulWidget {
+class ClientTasksContainer extends StatefulWidget {
 
-  final bool ownTask;
-
-  const TodoItemWidget({
-    required this.ownTask,
-    super.key
-  });
+  const ClientTasksContainer({super.key});
 
   @override
-  State<TodoItemWidget> createState() => _TodoItemWidgetState();
+  State<ClientTasksContainer> createState() => _ClientTasksContainerState();
 }
 
-class _TodoItemWidgetState extends State<TodoItemWidget> {
+class _ClientTasksContainerState extends State<ClientTasksContainer> {
 
   double _currentHeight = 0;
 
-  final double _expandedHeight = 100;
+  int index = 6;
+
+  final double _expandedHeight = 50;
 
   void _expandOnChanged() {
     bool isExpanded = _currentHeight == _expandedHeight;
@@ -116,6 +112,7 @@ class _TodoItemWidgetState extends State<TodoItemWidget> {
       ),
       margin : const EdgeInsets.all(6),
       child  : InkWell(
+        splashColor  : Colors.transparent,
         borderRadius : BorderRadius.circular(11),
         onTap        : _expandOnChanged,
         child        : Column(
@@ -124,70 +121,29 @@ class _TodoItemWidgetState extends State<TodoItemWidget> {
               padding: const EdgeInsets.all(6),
               child: Row(
                 children: [
-                  const ClientNameItem(),
-                  const EndDateItem(),
-                  const StatusItem(),
-                  const PriorityItem(),
-                  const ProgressItem(),
+                  const ClientNameTask(),
+                  const EndDateTask(),
+                  const StatusTask(),
+                  const PriorityTask(),
+                  const ProgressTask(),
                   IconButton(
                     icon      : const Icon(Icons.more_vert),
-                    onPressed : () => _removeActivityDialog(context),
+                    onPressed : () {},
                   ),
                 ],
               ),
             ),
-            TasksContainerList(currentHeight: _currentHeight),
+            ClientTaskList(currentHeight: _currentHeight, index: index),
           ],
         )
       ),
     );
   }
-
-  Future<void> _removeActivityDialog(BuildContext context) {
-    return showDialog<String>(
-      context: context,
-      builder: (BuildContext context) => TaskDialog(
-        dialogButtonColor : Colors.red,
-        dialogTitle       : "Remove task",
-        dialogButtonTitle : "Remove",
-        onPressed         : () => Navigator.pop(context),
-        dialogContent     : const Text('Are you sure you want to remove this task?')
-      )
-    );
-  }
 }
 
-class TasksContainerList extends StatelessWidget {
+class ClientNameTask extends StatelessWidget {
 
-  final double currentHeight;
-
-  const TasksContainerList({
-    required this.currentHeight,
-    super.key
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return AnimatedContainer(
-      decoration: BoxDecoration(
-        color        : graphicsBgColor,
-        borderRadius : const BorderRadius.vertical(
-          bottom: Radius.circular(10)
-        ),
-      ),
-      height    : this.currentHeight,
-      width     : double.infinity,
-      curve     : Curves.fastOutSlowIn,
-      duration  : const Duration(milliseconds: 150),
-      alignment : Alignment.center,
-      child     : const Text('Expandable Body'),
-    );
-  }
-}
-
-class ClientNameItem extends StatelessWidget {
-
-  const ClientNameItem({super.key});
+  const ClientNameTask({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -207,9 +163,9 @@ class ClientNameItem extends StatelessWidget {
   }
 }
 
-class EndDateItem extends StatelessWidget {
+class EndDateTask extends StatelessWidget {
 
-  const EndDateItem({super.key});
+  const EndDateTask({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -229,9 +185,9 @@ class EndDateItem extends StatelessWidget {
   }
 }
 
-class StatusItem extends StatelessWidget {
+class StatusTask extends StatelessWidget {
 
-  const StatusItem({super.key});
+  const StatusTask({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -255,9 +211,9 @@ class StatusItem extends StatelessWidget {
   }
 }
 
-class PriorityItem extends StatelessWidget {
+class PriorityTask extends StatelessWidget {
 
-  const PriorityItem({super.key});
+  const PriorityTask({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -278,9 +234,9 @@ class PriorityItem extends StatelessWidget {
   }
 }
 
-class ProgressItem extends StatelessWidget {
+class ProgressTask extends StatelessWidget {
 
-  const ProgressItem({super.key});
+  const ProgressTask({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -293,7 +249,7 @@ class ProgressItem extends StatelessWidget {
           children: [
             Center(
                 child: TweenAnimationBuilder(
-                  tween    : Tween(begin: 0.0, end: 0.3),
+                  tween    : Tween(begin: 0.0, end: 1.0),
                   duration : const Duration(milliseconds: 500),
                   builder  : (context, value, _) => CircularProgressIndicator(
                     value           : value,
@@ -302,10 +258,10 @@ class ProgressItem extends StatelessWidget {
                   ),
                 )),
             const Center(
-              child: Text(
+              child: 1 == 0 ? Text(
                 "25%",
                 style: TextStyle(fontSize: 12),
-              ),
+              ) : Icon(Icons.check),
             )
           ],
         ),
@@ -314,4 +270,67 @@ class ProgressItem extends StatelessWidget {
   }
 }
 
+class ClientTaskList extends StatelessWidget {
 
+  final double currentHeight;
+  final int index;
+
+  const ClientTaskList({
+    required this.index,
+    required this.currentHeight,
+    super.key
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedContainer(
+      decoration : BoxDecoration(
+        color        : graphicsBgColor,
+        borderRadius : const BorderRadius.vertical(
+          bottom: Radius.circular(10)
+        ),
+      ),
+      height    : this.currentHeight * this.index,
+      width     : double.infinity,
+      curve     : Curves.fastOutSlowIn,
+      duration  : const Duration(milliseconds: 150),
+      alignment : Alignment.center,
+      child     : ListView.builder(
+        itemCount   : index,
+        itemBuilder : (context, index){
+          return const ItemsTask();
+        }
+      ),
+    );
+  }
+}
+
+class ItemsTask extends StatelessWidget {
+
+  const ItemsTask({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height  : 50,
+      padding : const EdgeInsets.symmetric(horizontal: 10, vertical: 15),
+      child   : Row(
+        children: [
+          Checkbox(
+            activeColor : Colors.greenAccent,
+            checkColor  : scaffoldColor,
+            value       : true,
+            onChanged   : (value){}
+          ),
+          const Padding(
+            padding : EdgeInsets.symmetric(horizontal: 10),
+            child   : Text(
+              "Registrar arbol genealogico",
+              style: TextStyle(color: Colors.white),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}

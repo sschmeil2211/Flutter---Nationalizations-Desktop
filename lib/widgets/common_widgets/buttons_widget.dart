@@ -113,26 +113,22 @@ class ScreenChangerButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Expanded(
-      child: GestureDetector(
-        onTap : this.onTap,
-        child : Container(
-          margin     : this.buttonMargin,
-          height     : this.height,
-          decoration : BoxDecoration(
-            color        : this.buttonColor,
-            boxShadow    : [
-              BoxShadow(
-                color        : Colors.black.withOpacity(0.5),
-                spreadRadius : 2,
-                blurRadius   : 7,
-                offset       : const Offset(0, 0)
-              ),
-            ],
-            borderRadius : const BorderRadius.vertical(
-              bottom: Radius.circular(15)
-            )
+      child: Container(
+        margin     : this.buttonMargin,
+        height     : this.height,
+        decoration : BoxDecoration(
+          color        : this.buttonColor.withOpacity(0.7),
+          borderRadius : const BorderRadius.vertical(
+            bottom: Radius.circular(15)
+          )
+        ),
+        child      : InkWell(
+          borderRadius : const BorderRadius.vertical(
+              bottom: Radius.circular(16)
           ),
-          child: responsiveTitle(context),
+          onTap        : this.onTap,
+          hoverColor   : this.buttonColor,
+          child        : responsiveTitle(context),
         ),
       ),
     );
