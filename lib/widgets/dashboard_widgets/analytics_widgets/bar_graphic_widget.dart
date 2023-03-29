@@ -14,7 +14,7 @@ class BarGraphic extends StatelessWidget {
       width      : double.infinity,
       padding    : const EdgeInsets.all(appPadding),
       decoration : BoxDecoration(
-        color        : graphicsBgColor,
+        color        : drawerColor,
         borderRadius : BorderRadius.circular(10),
       ),
       child      : Column(

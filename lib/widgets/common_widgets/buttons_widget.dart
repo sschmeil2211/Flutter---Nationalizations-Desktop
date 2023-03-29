@@ -150,13 +150,13 @@ class ScreenChangerButton extends StatelessWidget {
   }
 }
 
-class TasksAndNotesButtons extends StatelessWidget {
+class NotesButtons extends StatelessWidget {
 
   final IconData buttonIcon;
   final String buttonTitle;
   final void Function() onPressed;
 
-  const TasksAndNotesButtons({
+  const NotesButtons({
     required this.buttonIcon,
     required this.buttonTitle,
     required this.onPressed,
@@ -169,10 +169,13 @@ class TasksAndNotesButtons extends StatelessWidget {
       padding : const EdgeInsets.symmetric(horizontal: 5),
       child   : ElevatedButton(
         style     : ButtonStyle(
-          backgroundColor : MaterialStateProperty.all(Colors.redAccent),
+          backgroundColor : MaterialStateProperty.all(drawerColor),
+          padding         : MaterialStateProperty.all(
+            const EdgeInsets.all(12)
+          ),
           shape           : MaterialStateProperty.all(
             RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10),
+              borderRadius: BorderRadius.circular(5),
             ),
           ),
         ),

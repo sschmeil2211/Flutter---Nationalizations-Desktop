@@ -2,25 +2,9 @@ import 'package:flutter/material.dart';
 
 import 'package:nationalizations/constants/constants.dart';
 
-class TaskWidget extends StatefulWidget {
+class TaskWidget extends StatelessWidget {
 
   const TaskWidget({super.key});
-
-  @override
-  State<TaskWidget> createState() => _TaskWidgetState();
-}
-
-class _TaskWidgetState extends State<TaskWidget> {
-
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
-  void dispose() { 
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -107,7 +91,7 @@ class _ClientTasksContainerState extends State<ClientTasksContainer> {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color        : graphicsBgColor,
+        color        : drawerColor,
         borderRadius : BorderRadius.circular(10),
       ),
       margin : const EdgeInsets.all(6),
