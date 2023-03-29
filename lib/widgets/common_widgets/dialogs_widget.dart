@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:nationalizations/constants/app_values_design.dart';
 
-class TaskDialog extends StatelessWidget {
+class NoteDialog extends StatelessWidget {
 
   final Color dialogButtonColor;
   final String dialogTitle;
@@ -8,7 +9,7 @@ class TaskDialog extends StatelessWidget {
   final void Function() onPressed;
   final Widget dialogContent;
 
-  const TaskDialog({
+  const NoteDialog({
     required this.dialogButtonColor,
     required this.dialogTitle,
     required this.dialogButtonTitle,
@@ -20,9 +21,14 @@ class TaskDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title   : Text(this.dialogTitle),
-      content : this.dialogContent,
-      actions : [
+      backgroundColor : drawerColor,
+      buttonPadding   : const EdgeInsets.symmetric(horizontal: 25),
+      title           : Text(this.dialogTitle),
+      shape           : RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(15)
+      ),
+      content         : this.dialogContent,
+      actions         : [
         TextButton(
           child     : const Text('Cancel'),
           onPressed : () => Navigator.pop(context),

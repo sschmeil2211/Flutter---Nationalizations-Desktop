@@ -17,7 +17,7 @@ const Color darkGrey = Color(0xFF303030);
 
 const Color scaffoldColor = Color(0xFF181924);
 Color graphicsBgColor = Colors.white.withOpacity(0.1);
-const Color drawerColor = Color(0xFF2A2B36);
+const Color drawerColor = Color(0xFF464758);
 const Color graphicTextColor = Colors.white70;
 
 // Default App Padding
